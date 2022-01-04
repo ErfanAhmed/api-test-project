@@ -1,9 +1,8 @@
 package com.example.apiUsage.controller;
 
-import com.example.apiUsage.Model.CountryInfo;
 import com.example.apiUsage.Model.Response;
 import com.example.apiUsage.helper.CountryInfoHelper;
-import com.example.apiUsage.service.ApiRestCountriesService;
+import com.example.apiUsage.service.RestApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,13 +11,13 @@ import org.springframework.web.bind.annotation.*;
 public class CountryInfoController {
 
     @Autowired
-    private ApiRestCountriesService apiRestCountriesService;
+    private RestApiService apiRestCountriesService;
 
     @GetMapping("/name/{name}")
     public Response details(@PathVariable String name) {
         return CountryInfoHelper.prepareResponse(
-                apiRestCountriesService
-                        .getCountryDetailsByName(name));
+                apiRestCountriesService.getCountryDetailsByName(name),
+                apiRestCountriesService.getExchangeRate());
     }
 
 }
